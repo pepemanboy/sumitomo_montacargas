@@ -12,6 +12,7 @@
 /// CONFIGURABLE DEFINES
 #define MASTER
 // #define DEBUG
+#define MCG_DOOR_POLARITY 1
 
 /// COMMUNICATION
 #define ADDRESS 0
@@ -226,7 +227,7 @@ typedef enum
 /** Read door status */
 uint8_t mcgReadDoor(uint8_t door)
 {
-  return digitalRead(door) ? mcg_door_open : mcg_door_closed;
+  return digitalRead(door) == MCG_DOOR_POLARITY ? mcg_door_open : mcg_door_closed;
 }
 
 /** Check door status */
