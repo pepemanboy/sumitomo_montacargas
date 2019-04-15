@@ -12,7 +12,7 @@
 /// CONFIGURABLE DEFINES
 #define MASTER
 // #define DEBUG
-#define MCG_DOOR_POLARITY 1
+#define MCG_DOOR_POLARITY 0
 
 /// COMMUNICATION
 #define ADDRESS 0
@@ -196,7 +196,7 @@ void ledGoodBad(bool good)
 /** Control relay */
 void relayControl(mcg_e state)
 {
-  digitalWrite(RELAY, state == mcg_On ? HIGH : LOW);
+  digitalWrite(RELAY, state == mcg_On ? LOW : HIGH);
 }
 
 /// IO MODULE
@@ -220,21 +220,21 @@ res_t IOSetup()
 /// MCG MODULE
 typedef enum
 {
-  mcg_door_open = 0,
-  mcg_door_closed,
+  mcg_door_closed = 1,
+  mcg_door_open,
 }mcg_door_e;
 
 /** Read door status */
 uint8_t mcgReadDoor(uint8_t door)
 {
-  return digitalRead(door) == MCG_DOOR_POLARITY ? mcg_door_open : mcg_door_closed;
+  return digitalRead(door) == MCG_DOOR_POLARITY ? mcg_door_closed : mcg_door_open;
 }
 
 /** Check door status */
 mcg_e mcgDoorCommand()
 {
-  mcg_e c = (((mcgReadDoor(DOOR_1) == mcg_door_closed) && (mcgReadDoor(DOOR_2) == mcg_door_closed)) ? mcg_On : mcg_Off);
-  ledGoodBad(c == mcg_On);
+  mcg_e c = (((mcgReadDoor(DOOR_1) == mcg_door_closed) && (mcgReadDoor(DOOR_2) == mcg_door_closed)) ? mcg_Off : mcg_On);
+  ledGoodBad(c == mcg_Off);
   return c;
 }
 
@@ -242,7 +242,7 @@ mcg_e mcgDoorCommand()
 res_t mcgControl(mcg_e cmd)
 {
   relayControl(cmd);
-  ledGoodBad(cmd == mcg_On);
+  ledGoodBad(cmd == mcg_Off);
   return Ok;
 }
 
