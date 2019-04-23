@@ -25,22 +25,22 @@
 #define HC12_BAUDRATE 9600
 #define HC12 HC12_Serial
 
-#define HC12_RX 2
-#define HC12_TX 3
-#define HC12_SET 7
+#define HC12_RX 3
+#define HC12_TX 4
+#define HC12_SET 2
 
 /// USB
 #define USB Serial
 #define USB_BAUDRATE 9600
 
 /// LED
-#define LED_GREEN 10
-#define LED_RED 11
+#define LED_GREEN 8
+#define LED_RED 9
 #define LED_ERROR LED_RED
 
 /// IO
-#define IO_PIN_1 12
-#define IO_PIN_2 13
+#define IO_PIN_1 10
+#define IO_PIN_2 11
 
 #define DOOR_1 IO_PIN_1
 #define DOOR_2 IO_PIN_2
